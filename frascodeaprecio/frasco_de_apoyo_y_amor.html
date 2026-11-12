@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frasco de Apoyo y Amor ❤️ - Día de la Educación Primaria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: radial-gradient(circle at top left, #fff5f7 0%, #ffe4e8 45%, #ffedd5 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* Animación de agitar el frasco */
+        @keyframes shakeJar {
+            0% { transform: rotate(0deg) scale(1); }
+            20% { transform: rotate(-5deg) scale(1.03); }
+            40% { transform: rotate(5deg) scale(1.03); }
+            60% { transform: rotate(-4deg) scale(1.02); }
+            80% { transform: rotate(4deg) scale(1.02); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+        .animate-shake {
+            animation: shakeJar 0.65s ease-in-out;
+        }
+
+        /* Flotación suave de los papelitos dentro del frasco */
+        @keyframes floatPaper {
+            0%, 100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+            50% { transform: translateY(-3px) rotate(calc(var(--rot, 0deg) + 3deg)); }
+        }
+        .paper-inside {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: floatPaper 3.5s ease-in-out infinite;
+        }
+        .jar-wrapper:hover .paper-inside {
+            animation-duration: 1.2s;
+        }
+
+        /* Animación de entrada de la carta abierta */
+        @keyframes unfoldPaper {
+            0% { opacity: 0; transform: scale(0.88) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .animate-unfold {
+            animation: unfoldPaper 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Textura sutil de papel para la nota */
+        .paper-texture {
+            background-color: #fffdf9;
+            background-image: linear-gradient(to bottom, rgba(244, 114, 182, 0.08) 1px, transparent 1px);
+            background-size: 100% 2rem;
+        }
+
+        /* Destellos decorativos */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.15); }
+        }
+        .sparkle {
+            animation: twinkle 2.8s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-between py-6 px-4 text-stone-700 select-none">
+
+    <!-- Encabezado cálido -->
+    <header class="text-center max-w-md mx-auto mt-1">
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-rose-100/90 border border-rose-200 text-rose-700 text-xs font-bold tracking-wide shadow-sm mb-2">
+            <span>✨ Feliz Día de la Educación Primaria ✨</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-rose-900 tracking-tight">
+            NATY
+        </h1>
+        <p class="text-sm sm:text-base text-rose-800/80 mt-1.5 leading-relaxed">
+            Para la futura mejor profesora de primaria: cada papelito guarda varias notas escritas con todo mi corazón.
+        </p>
+    </header>
+
+    <!-- Contenedor Central del Frasco SVG -->
+    <main class="flex flex-col items-center justify-center my-3 w-full max-w-md">
+        <div id="jarContainer" onclick="sacarPapelito()" class="jar-wrapper relative cursor-pointer group flex flex-col items-center justify-center p-2 transition-transform duration-300 hover:scale-[1.02] active:scale-95" title="Haz clic para sacar un papelito">
+            
+            <!-- Brillo detrás del frasco -->
+            <div class="absolute w-60 h-60 bg-rose-300/25 rounded-full blur-2xl -z-10 group-hover:bg-amber-200/35 transition-colors duration-500"></div>
+
+            <!-- SVG Mason Jar Detallado -->
+            <svg id="masonJarSvg" class="w-64 h-80 sm:w-72 sm:h-[22rem] drop-shadow-xl" viewBox="0 0 300 370" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- Gradiente del vidrio -->
+                    <linearGradient id="glassBody" x1="45" y1="90" x2="255" y2="350" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.72"/>
+                        <stop offset="45%" stop-color="#fff1f2" stop-opacity="0.38"/>
+                        <stop offset="100%" stop-color="#ffe4e6" stop-opacity="0.65"/>
+                    </linearGradient>
+                    <!-- Gradiente tapa metálica rosada/dorada -->
+                    <linearGradient id="lidGradient" x1="80" y1="32" x2="220" y2="62" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#f43f5e"/>
+                        <stop offset="35%" stop-color="#fb7185"/>
+                        <stop offset="70%" stop-color="#fda4af"/>
+                        <stop offset="100%" stop-color="#e11d48"/>
+                    </linearGradient>
+                    <!-- Gradiente borde de vidrio -->
+                    <linearGradient id="glassStroke" x1="50" y1="80" x2="250" y2="355" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+                        <stop offset="50%" stop-color="#fecdd3" stop-opacity="0.85"/>
+                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0.9"/>
+                    </linearGradient>
+                    <!-- Filtro de sombra suave para papelitos -->
+                    <filter id="paperShadow" x="-10%" y="-10%" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#881337" flood-opacity="0.15"/>
+                    </filter>
+                </defs>
+
+                <!-- Sombra base en la mesa -->
+                <ellipse cx="150" cy="354" rx="92" ry="10" fill="#be123c" fill-opacity="0.14"/>
+
+                <!-- Parte trasera del cuello de vidrio -->
+                <rect x="88" y="58" width="124" height="26" rx="6" fill="#ffe4e6" fill-opacity="0.5" stroke="#ffffff" stroke-width="2"/>
+
+                <!-- Cuerpo principal del Mason Jar (Fondo) -->
+                <path d="M90 82 C90 92, 54 102, 54 132 L54 316 C54 338, 70 350, 94 350 L206 350 C230 350, 246 338, 246 316 L246 132 C246 102, 210 92, 210 82 Z" fill="url(#glassBody)"/>
+
+                <!-- Papelitos doblados/enrollados de colores pastel dentro del frasco -->
+                <g id="papersGroup" filter="url(#paperShadow)">
+                    <!-- Capa inferior -->
+                    <g class="paper-inside" style="--rot: -14deg; animation-delay: 0.1s;">
+                        <rect x="68" y="295" width="52" height="24" rx="7" transform="rotate(-14 94 307)" fill="#fbcfe8" stroke="#f9a8d4" stroke-width="1.5"/>
+                        <line x1="74" y1="305" x2="112" y2="296" stroke="#f472b6" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+                    <g class="paper-inside" style="--rot: 10deg; animation-delay: 0.4s;">
+                        <rect x="122" y="302" width="56" height="25" rx="7" transform="rotate(10 150 314)" fill="#fde68a" stroke="#fcd34d" stroke-width="1.5"/>
+                        <line x1="130" y1="312" x2="170" y2="318" stroke="#f59e0b" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+                    <g class="paper-inside" style="--rot: -8deg; animation-delay: 0.7s;">
+                        <rect x="176" y="294" width="54" height="25" rx="7" transform="rotate(-8 203 306)" fill="#fed7aa" stroke="#fdba74" stroke-width="1.5"/>
+                        <line x1="184" y1="307" x2="222" y2="302" stroke="#fb923c" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- Segunda fila -->
+                    <g class="paper-inside" style="--rot: 18deg; animation-delay: 0.2s;">
+                        <rect x="66" y="264" width="54" height="24" rx="7" transform="rotate(18 93 276)" fill="#ddd6fe" stroke="#c4b5fd" stroke-width="1.5"/>
+                        <line x1="75" y1="272" x2="112" y2="283" stroke="#8b5cf6" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+                    <g class="paper-inside" style="--rot: -12deg; animation-delay: 0.5s;">
+                        <rect x="118" y="270" width="58" height="25" rx="7" transform="rotate(-12 147 282)" fill="#fecdd3" stroke="#fda4af" stroke-width="1.5"/>
+                        <path d="M144 278 C144 275, 149 275, 149 278 C149 275, 154 275, 154 278 C154 282, 149 285, 149 285 C149 285, 144 282, 144 278 Z" fill="#f43f5e"/>
+                    </g>
+                    <g class="paper-inside" style="--rot: 15deg; animation-delay: 0.9s;">
+                        <rect x="175" y="262" width="52" height="24" rx="7" transform="rotate(15 201 274)" fill="#bbf7d0" stroke="#86efac" stroke-width="1.5"/>
+                        <line x1="183" y1="270" x2="219" y2="279" stroke="#22c55e" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- Tercera fila -->
+                    <g class="paper-inside" style="--rot: -19deg; animation-delay: 0.3s;">
+                        <rect x="74" y="234" width="52" height="24" rx="7" transform="rotate(-19 100 246)" fill="#fef08a" stroke="#fde047" stroke-width="1.5"/>
+                    </g>
+                    <g class="paper-inside" style="--rot: 7deg; animation-delay: 0.6s;">
+                        <rect x="126" y="238" width="54" height="24" rx="7" transform="rotate(7 153 250)" fill="#bae6fd" stroke="#7dd3fc" stroke-width="1.5"/>
+                    </g>
+                    <g class="paper-inside" style="--rot: -14deg; animation-delay: 1s;">
+                        <rect x="174" y="230" width="50" height="23" rx="7" transform="rotate(-14 199 241)" fill="#fbcfe8" stroke="#f9a8d4" stroke-width="1.5"/>
+                    </g>
+
+                    <!-- Cuarta fila (más arriba) -->
+                    <g class="paper-inside" style="--rot: 12deg; animation-delay: 0.15s;">
+                        <rect x="86" y="204" width="52" height="23" rx="7" transform="rotate(12 112 215)" fill="#fed7aa" stroke="#fdba74" stroke-width="1.5"/>
+                    </g>
+                    <g class="paper-inside" style="--rot: -9deg; animation-delay: 0.55s;">
+                        <rect x="148" y="202" width="54" height="23" rx="7" transform="rotate(-9 175 213)" fill="#fecdd3" stroke="#fda4af" stroke-width="1.5"/>
+                    </g>
+                    <g class="paper-inside" style="--rot: 22deg; animation-delay: 0.8s;">
+                        <rect x="115" y="176" width="48" height="22" rx="7" transform="rotate(22 139 187)" fill="#fde68a" stroke="#fcd34d" stroke-width="1.5"/>
+                    </g>
+                </g>
+
+                <!-- Contorno y brillos frontales del vidrio -->
+                <path d="M90 82 C90 92, 54 102, 54 132 L54 316 C54 338, 70 350, 94 350 L206 350 C230 350, 246 338, 246 316 L246 132 C246 102, 210 92, 210 82 Z" stroke="url(#glassStroke)" stroke-width="4.5"/>
+
+                <!-- Reflejos de luz en el vidrio -->
+                <path d="M70 135 L70 308" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-opacity="0.65"/>
+                <path d="M70 116 L70 123" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-opacity="0.65"/>
+                <path d="M231 142 L231 285" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.4"/>
+
+                <!-- Roscas del cuello de vidrio -->
+                <rect x="84" y="62" width="132" height="7" rx="3.5" fill="#ffffff" fill-opacity="0.75" stroke="#fecdd3" stroke-width="1.2"/>
+                <rect x="84" y="72" width="132" height="7" rx="3.5" fill="#ffffff" fill-opacity="0.75" stroke="#fecdd3" stroke-width="1.2"/>
+
+                <!-- Tapa metálica rosada estilo Mason Jar -->
+                <rect x="82" y="34" width="136" height="24" rx="7" fill="url(#lidGradient)" stroke="#be123c" stroke-width="1.5"/>
+                <!-- Líneas verticales de textura de la tapa -->
+                <line x1="98" y1="36" x2="98" y2="56" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"/>
+                <line x1="114" y1="36" x2="114" y2="56" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"/>
+                <line x1="130" y1="36" x2="130" y2="56" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"/>
+                <line x1="150" y1="36" x2="150" y2="56" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"/>
+                <line x1="170" y1="36" x2="170" y2="56" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"/>
+                <line x1="186" y1="36" x2="186" y2="56" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"/>
+                <line x1="202" y1="36" x2="202" y2="56" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"/>
+                <!-- Brillo superior de la tapa -->
+                <rect x="92" y="30" width="116" height="5" rx="2.5" fill="#fda4af"/>
+
+                <!-- Cordón / Lazo decorativo alrededor del cuello -->
+                <path d="M84 82 Q150 92 216 82" stroke="#d97706" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M84 85 Q150 95 216 85" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+                <!-- Lazito izquierdo y derecho -->
+                <path d="M150 88 C134 76, 126 94, 148 89" stroke="#d97706" stroke-width="2.5" fill="none"/>
+                <path d="M150 88 C166 76, 174 94, 152 89" stroke="#d97706" stroke-width="2.5" fill="none"/>
+                <!-- Hilo que sostiene la etiqueta -->
+                <path d="M150 89 L150 112" stroke="#b45309" stroke-width="2"/>
+
+                <!-- Etiqueta colgante "Para ti ❤️" -->
+                <g transform="rotate(-4 150 135)">
+                    <path d="M110 116 L118 108 L182 108 L190 116 L190 152 C190 156, 187 159, 183 159 L117 159 C113 159, 110 156, 110 152 Z" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.8"/>
+                    <circle cx="150" cy="114" r="3" fill="#d97706"/>
+                    <text x="150" y="139" text-anchor="middle" fill="#9f1239" font-family="Quicksand, sans-serif" font-weight="700" font-size="15">Para ti ❤️</text>
+                    <text x="150" y="152" text-anchor="middle" fill="#b45309" font-family="Nunito, sans-serif" font-weight="600" font-size="8.5">Con Mucho Cariño</text>
+                </g>
+
+                <!-- Destellos alrededor del frasco -->
+                <path class="sparkle" style="animation-delay: 0s;" d="M36 140 L39 148 L47 151 L39 154 L36 162 L33 154 L25 151 L33 148 Z" fill="#fbbf24"/>
+                <path class="sparkle" style="animation-delay: 1.1s;" d="M264 185 L266 191 L272 193 L266 195 L264 201 L262 195 L256 193 L262 191 Z" fill="#fb7185"/>
+                <path class="sparkle" style="animation-delay: 0.6s;" d="M44 260 L46 265 L51 267 L46 269 L44 274 L42 269 L37 267 L42 265 Z" fill="#f472b6"/>
+            </svg>
+        </div>
+
+        <!-- Botón de acción principal y contador -->
+        <div class="flex flex-col items-center gap-3 mt-1">
+            <button onclick="sacarPapelito()" class="group relative inline-flex items-center gap-2.5 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-display font-bold text-base sm:text-lg px-7 py-3.5 rounded-full shadow-lg shadow-rose-300/60 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0">
+                <span>Sacar un papelito</span>
+                <span class="text-xl transition-transform duration-300 group-hover:rotate-12">💌</span>
+            </button>
+
+            <div class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-rose-800/80 bg-white/65 backdrop-blur-sm px-4 py-1.5 rounded-full border border-rose-200/70">
+                <span>Papelitos descubiertos:</span>
+                <span id="contadorDescubiertos" class="text-rose-600 font-extrabold">0 de 7</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="text-center text-xs text-rose-800/60 pb-2">
+        Hecho con mucho amor para acompañarte en cada paso de tu vocación 🌷
+    </footer>
+
+    <!-- Modal / Carta Desplegada (Con múltiples notas dentro de cada papelito) -->
+    <div id="modalCarta" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-rose-950/40 backdrop-blur-sm transition-opacity">
+        <div id="tarjetaPapelito" class="animate-unfold relative w-full max-w-md rounded-3xl shadow-2xl border-2 border-amber-200/80 paper-texture overflow-hidden">
+            
+            <!-- Franja superior decorativa según el color del papelito -->
+            <div id="papelitoHeaderBg" class="px-6 pt-5 pb-4 bg-gradient-to-r from-rose-100 to-amber-50 border-b border-rose-200/60 flex items-center justify-between">
+                <div>
+                    <span id="badgePapelito" class="inline-block text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/80 text-rose-600 shadow-sm mb-1">
+                        Papelito #1
+                    </span>
+                    <h2 id="tituloPapelito" class="text-lg sm:text-xl font-bold text-rose-950 leading-snug">
+                        Cuando la universidad se sienta pesada
+                    </h2>
+                </div>
+                <button onclick="cerrarModal()" aria-label="Cerrar nota" class="w-9 h-9 rounded-full bg-white/80 hover:bg-white text-rose-700 flex items-center justify-center shadow-sm transition-colors text-lg font-bold">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Cuerpo del papelito: muestra las notas internas del papelito seleccionado -->
+            <div class="p-6">
+                <!-- Indicador de progreso de las notas dentro de ESTE papelito -->
+                <div class="flex items-center justify-between mb-3">
+                    <span id="indicadorNotaInterna" class="text-xs font-bold text-amber-700 bg-amber-100/80 px-3 py-1 rounded-full">
+                        Nota 1 de 4 en este papelito
+                    </span>
+                    <div id="puntosProgreso" class="flex gap-1.5">
+                        <!-- Se generan dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Contenedor de la nota actual dentro del papelito -->
+                <div class="min-h-[155px] flex flex-col justify-center bg-white/85 rounded-2xl p-5 border border-rose-100 shadow-inner relative">
+                    <span class="text-3xl text-rose-200 font-serif absolute top-2 left-3 leading-none">“</span>
+                    <p id="textoNotaActual" class="text-stone-700 text-base sm:text-[17px] leading-relaxed font-medium text-center px-2 z-10">
+                        Aquí va el mensaje...
+                    </p>
+                    <span class="text-3xl text-rose-200 font-serif absolute bottom-0 right-3 leading-none">”</span>
+                </div>
+
+                <!-- Controles para leer las notas de este papelito -->
+                <div class="flex items-center justify-between gap-2 mt-4">
+                    <button id="btnAnteriorNota" onclick="cambiarNotaInterna(-1)" class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-rose-700 bg-rose-100/70 hover:bg-rose-200/70 disabled:opacity-40 disabled:pointer-events-none transition-colors">
+                        ← Anterior
+                    </button>
+
+                    <button id="btnSiguienteNota" onclick="cambiarNotaInterna(1)" class="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 shadow-sm transition-colors">
+                        Leer siguiente nota del papelito →
+                    </button>
+                </div>
+
+                <!-- Separador y acciones finales -->
+                <div class="mt-5 pt-4 border-t border-rose-200/60 flex flex-col sm:flex-row gap-2.5">
+                    <button onclick="sacarOtroDesdeModal()" class="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-rose-700 bg-rose-100 hover:bg-rose-200 transition-colors flex items-center justify-center gap-1.5">
+                        <span>🫙 Sacar otro papelito</span>
+                    </button>
+                    <button onclick="cerrarModal()" class="py-2.5 px-5 rounded-xl text-xs sm:text-sm font-bold text-stone-600 bg-stone-100 hover:bg-stone-200 transition-colors">
+                        Guardar en mi corazón ❤️
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base de datos de papelitos: cada papelito contiene 4 mensajes lindos y de apoyo agrupados por temática
+        const papelitos = [
+            {
+                id: 1,
+                titulo: "Por si algún día te sientes cansada 🌷",
+                colorHeader: "from-rose-100 to-pink-50",
+                notas: [
+                    "Sé que estar en 6to ciclo trae mil planificaciones, lecturas y trabajos que a veces te dejan sin energía, pero quiero recordarte que lo estás haciendo increíble.",
+                    "No tienes que poder con todo en un solo minuto. Respira hondo, toma de tu aguita y date permiso de descansar cuando tu cuerpo y tu mente lo pidan.",
+                    "Incluso en los días en los que sientes que ya no das más, tu esfuerzo silencioso está construyendo la profesional maravillosa que siempre soñaste ser.",
+                    "Cuando la universidad pese demasiado, apóyate en mí. Siempre voy a estar aquí para escucharte, abrazarte y recordarte lo valiosa que eres."
+                ]
+            },
+            {
+                id: 2,
+                titulo: "Feliz Día de la Educación Primaria 🍎✨",
+                colorHeader: "from-amber-100 to-orange-50",
+                notas: [
+                    "¡Feliz día, mi futura Miss! Hoy celebro tu vocación, esa capacidad tan bonita que tienes para enseñar desde el cariño y la ternura.",
+                    "Los niños que tengan la suerte de encontrarte en un aula van a recordar para siempre tu paciencia, tu sonrisa y la forma tan dulce en que los guías.",
+                    "Educar en primaria es sembrar semillas en el corazón de los más pequeños, y nadie tiene un corazón tan noble y dedicado como el tuyo para hacerlo.",
+                    "Me llena el pecho de orgullo verte amar tanto tu carrera y ponerle tanta creatividad a cada sesión y material que preparas."
+                ]
+            },
+            {
+                id: 3,
+                titulo: "Todo lo que admiro de ti 🌟",
+                colorHeader: "from-purple-100 to-pink-50",
+                notas: [
+                    "Admiro muchísimo tu disciplina y cómo, aunque estés cansada o desvelada, siempre buscas dar lo mejor en tus clases y prácticas.",
+                    "Me encanta ver cómo te brillan los ojitos cada vez que me cuentas una anécdota de tus niños o una idea para tus trabajos de la u.",
+                    "Tienes una mezcla única de dulzura, inteligencia y fortaleza que hace que cualquier reto universitario termine rindiéndose ante ti.",
+                    "Eres mi ejemplo favorito de constancia. Ver cómo avanzas ciclo a ciclo me inspira a ser mejor persona cada día."
+                ]
+            },
+            {
+                id: 4,
+                titulo: "Un abrazo escrito para tu corazón 🤗❤️",
+                colorHeader: "from-rose-100 to-amber-50",
+                notas: [
+                    "Si hoy tuviste un día pesado en la uni, imagina que este papelito es un abrazo largo donde puedes soltar todo el estrés.",
+                    "Recuerda que una nota jamás definen tu capacidad ni el enorme talento que tienes para enseñar.",
+                    "Ya pasaste la mitad de la carrera; mira hacia atrás todo lo que has logrado desde el primer ciclo y siéntete inmensamente orgullosa de ti.",
+                    "Eres la mejor, en tus días llenos de energía y también en tus días de cansancio. Siempre somos y seremos un equipo/duo."
+                ]
+            },
+            {
+                id: 5,
+                titulo: "Recordatorios cuando dudes de ti 🌻",
+                colorHeader: "from-yellow-100 to-amber-50",
+                notas: [
+                    "Eres mucho más capaz, brillante y creativa de lo que crees.",
+                    "Está bien sentirte abrumada de vez en cuando; estudiar y prepararse para formar vidas es una labor gigante y tú la llevas con mucha altura.",
+                    "Cada madrugada de estudio y cada material recortado con paciencia tiene un propósito hermoso que muy pronto verás florecer.",
+                    "Confía en tu intuición, en tu preparación y en ese corazón tan bonito que le pones a todo lo que haces."
+                ]
+            },
+            {
+                id: 6,
+                titulo: "Motivos por los que te aprecio tanto 💖",
+                colorHeader: "from-pink-100 to-rose-50",
+                notas: [
+                    "Adoro tu ternura natural, esa forma tan tuya de cuidar los detalles y hacer sentir especiales a las personas que quieres.",
+                    "Adoro nuestra complicidad, tus risas espontáneas y hasta tus caritas de concentración cuando estás preparando tus materiales de clase.",
+                    "Gracias por dejarme acompañarte en esta etapa tan bonita de tu vida universitaria y compartir tus sueños conmigo.",
+                    "Pase lo que pase en el día, saber que te tengo en mi vida siempre será mi parte favorita."
+                ]
+            },
+            {
+                id: 7,
+                titulo: "Tu futuro brillante como docente 🎓🌈",
+                colorHeader: "from-emerald-50 to-teal-50",
+                notas: [
+                    "Ya falta cada vez menos para verte graduada, cumpliendo ese sueño por el que tanto te esfuerzas.",
+                    "El mundo necesita más profesoras como tú: empáticas, alegres, humanas y profundamente comprometidas con el bienestar de sus niños.",
+                    "Cada niño que pase por tu salón se llevará un pedacito de tu luz y aprenderá que estudiar puede ser una experiencia feliz.",
+                    "Voy a estar en primera fila aplaudiendo cada uno de tus logros, hoy, en tu graduación y en cada meta que cumplas."
+                ]
+            }
+        ];
+
+        let papelitoActualIndex = -1;
+        let notaInternaIndex = 0;
+        let descubiertos = new Set();
+        let colaAleatoria = [];
+
+        // Mezclar índices para que no se repitan papelitos hasta verlos todos
+        function obtenerSiguienteIndicePapelito() {
+            if (colaAleatoria.length === 0) {
+                colaAleatoria = papelitos.map((_, idx) => idx);
+                for (let i = colaAleatoria.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [colaAleatoria[i], colaAleatoria[j]] = [colaAleatoria[j], colaAleatoria[i]];
+                }
+                // Evitar repetir inmediatamente el último mostrado
+                if (colaAleatoria.length > 1 && colaAleatoria[colaAleatoria.length - 1] === papelitoActualIndex) {
+                    const first = colaAleatoria.shift();
+                    colaAleatoria.push(first);
+                }
+            }
+            return colaAleatoria.pop();
+        }
+
+        function sacarPapelito() {
+            const jarSvg = document.getElementById("masonJarSvg");
+            jarSvg.classList.remove("animate-shake");
+            void jarSvg.offsetWidth; // Reiniciar animación
+            jarSvg.classList.add("animate-shake");
+
+            setTimeout(() => {
+                papelitoActualIndex = obtenerSiguienteIndicePapelito();
+                notaInternaIndex = 0;
+                descubiertos.add(papelitoActualIndex);
+                actualizarContador();
+                renderizarPapelito();
+                abrirModal();
+            }, 380);
+        }
+
+        function sacarOtroDesdeModal() {
+            const tarjeta = document.getElementById("tarjetaPapelito");
+            tarjeta.classList.remove("animate-unfold");
+            void tarjeta.offsetWidth;
+            tarjeta.classList.add("animate-unfold");
+
+            papelitoActualIndex = obtenerSiguienteIndicePapelito();
+            notaInternaIndex = 0;
+            descubiertos.add(papelitoActualIndex);
+            actualizarContador();
+            renderizarPapelito();
+        }
+
+        function renderizarPapelito() {
+            const papelito = papelitos[papelitoActualIndex];
+            const totalNotas = papelito.notas.length;
+
+            // Actualizar cabecera y color
+            const headerEl = document.getElementById("papelitoHeaderBg");
+            headerEl.className = `px-6 pt-5 pb-4 bg-gradient-to-r ${papelito.colorHeader} border-b border-rose-200/60 flex items-center justify-between`;
+
+            document.getElementById("badgePapelito").innerText = `Papelito #${papelito.id} de ${papelitos.length}`;
+            document.getElementById("tituloPapelito").innerText = papelito.titulo;
+            document.getElementById("indicadorNotaInterna").innerText = `Nota ${notaInternaIndex + 1} de ${totalNotas} en este papelito`;
+            document.getElementById("textoNotaActual").innerText = papelito.notas[notaInternaIndex];
+
+            // Renderizar puntitos indicadores
+            const puntosContainer = document.getElementById("puntosProgreso");
+            puntosContainer.innerHTML = "";
+            for (let i = 0; i < totalNotas; i++) {
+                const dot = document.createElement("button");
+                dot.onclick = () => {
+                    notaInternaIndex = i;
+                    renderizarPapelito();
+                };
+                dot.className = i === notaInternaIndex
+                    ? "w-5 h-2 rounded-full bg-rose-500 transition-all"
+                    : "w-2 h-2 rounded-full bg-rose-200 hover:bg-rose-300 transition-all";
+                dot.setAttribute("aria-label", `Ir a nota ${i + 1}`);
+                puntosContainer.appendChild(dot);
+            }
+
+            // Estado de botones internos
+            const btnAnt = document.getElementById("btnAnteriorNota");
+            const btnSig = document.getElementById("btnSiguienteNota");
+
+            btnAnt.disabled = notaInternaIndex === 0;
+
+            if (notaInternaIndex < totalNotas - 1) {
+                btnSig.disabled = false;
+                btnSig.innerText = `Leer siguiente nota (${notaInternaIndex + 2}/${totalNotas}) →`;
+                btnSig.className = "flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 shadow-sm transition-colors";
+            } else {
+                btnSig.disabled = true;
+                btnSig.innerText = "✨ Leíste todas las notas de este papelito";
+                btnSig.className = "flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-emerald-700 bg-emerald-100/90 cursor-default";
+            }
+        }
+
+        function cambiarNotaInterna(delta) {
+            const totalNotas = papelitos[papelitoActualIndex].notas.length;
+            const nuevoIndice = notaInternaIndex + delta;
+            if (nuevoIndice >= 0 && nuevoIndice < totalNotas) {
+                notaInternaIndex = nuevoIndice;
+                renderizarPapelito();
+            }
+        }
+
+        function actualizarContador() {
+            document.getElementById("contadorDescubiertos").innerText = `${descubiertos.size} de ${papelitos.length}`;
+        }
+
+        function abrirModal() {
+            const modal = document.getElementById("modalCarta");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        }
+
+        function cerrarModal() {
+            const modal = document.getElementById("modalCarta");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
+
+        // Cerrar modal al hacer clic fuera de la tarjeta
+        document.getElementById("modalCarta").addEventListener("click", function(e) {
+            if (e.target === this) {
+                cerrarModal();
+            }
+        });
+    </script>
+</body>
+</html>
